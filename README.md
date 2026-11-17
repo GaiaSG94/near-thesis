@@ -49,3 +49,23 @@ et une phrase factuelle. Règle dure : Never invent numbers.
 - Fenêtre par défaut : `block_date >= '2026-10-01'`.
 - Contrat data : `data/merged/daily.csv` =
   `date,active_accounts,tx_count,contract_calls,unique_contracts,intents_swaps,intents_volume_usd`.
+
+## 6. État du dépôt (17/11/2026)
+
+Le code, les requêtes et `THESIS.md` sont versionnés. **Les sorties ne le
+sont pas** : `data/raw/`, `data/merged/daily.csv` et `dashboard.html`
+n'existent ni dans l'historique git ni sur la machine de travail (le commit
+initial précède leur production).
+
+Conséquences, à savoir avant de juger :
+
+- le **mode cache (§3) est inopérant ici** : il exige le brut versionné ;
+- `dashboard.html` n'est pas ouvrable tant que le rebuild (§2) n'a pas été
+  exécuté — il lui faut le JWT Intents et les credentials BigQuery, jamais
+  versionnés ;
+- **aucun chiffre n'est inventé** : les valeurs de `THESIS.md` renvoient à
+  des requêtes et à des logs de pull, pas au dashboard.
+
+Pour restaurer les sorties : exécuter §2, puis committer `data/raw/` et
+`dashboard.html` (le `.gitignore` les accepte volontairement).
+

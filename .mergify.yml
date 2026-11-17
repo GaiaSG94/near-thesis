@@ -1,0 +1,43 @@
+# Pipeline PR hackathons — template + bootstrap
+# Transcription de CI-MERGIFY-PR.md (§ But, § 4, § 5, § 6, Règles).
+# Adaptations assumees (voir README.md) : branche main, runners ubuntu-latest,
+# build auto-detecte (Node/Python), flag HACK_ALLOW_GUARD_BUMP.
+
+queue_rules:
+  - name: default
+    queue_conditions:
+      - check-success = ci
+      - check-success = ci-budget
+      - check-success = couche0
+      - -label = hold
+      - -conflict
+      - -draft
+      - base = main
+    batch_size: 1
+    max_checks_retries: 0
+    merge_method: rebase
+    update_method: rebase
+
+priority_rules:
+  - name: urgent
+    conditions:
+      - label = urgent
+  - name: priority-low
+    conditions:
+      - label = priority-low
+
+merge_queue:
+  mode: serial
+  max_parallel_checks: 1
+
+merge_protections:
+  - name: CI verte et pas de hold
+    success_conditions:
+      - check-success = ci
+      - check-success = ci-budget
+      - check-success = couche0
+      - -label = hold
+      - base = main
+
+merge_protections_settings:
+  auto_merge_conditions: true

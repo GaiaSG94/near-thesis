@@ -1,0 +1,26 @@
+name: couche0
+
+on:
+  pull_request:
+
+concurrency:
+  group: couche0-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  couche0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Couche 0 (scope + motifs + gardes)
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: python3 .github/couche0/check_couche0.py --base origin/main

@@ -3,3 +3,6 @@
 # Bytecode Python régénérable.
 __pycache__/
 # NOTE : data/raw/ DOIT être commité (brut versionné pour le rebuild sans JWT).
+
+# Raccourcis Windows.
+*.lnk

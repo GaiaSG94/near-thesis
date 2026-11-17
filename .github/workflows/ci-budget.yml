@@ -1,0 +1,24 @@
+name: ci-budget
+
+on:
+  pull_request:
+  push:
+
+concurrency:
+  group: ci-budget-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci-budget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Budget 5 min
+        run: python3 .github/ci-budget/check_timeouts.py
