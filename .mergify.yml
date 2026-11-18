@@ -32,12 +32,13 @@ merge_queue:
 
 merge_protections:
   - name: CI verte et pas de hold
+    if:
+      - base = main
     success_conditions:
       - check-success = ci
       - check-success = ci-budget
       - check-success = couche0
       - -label = hold
-      - base = main
 
 merge_protections_settings:
   auto_merge_conditions: true
