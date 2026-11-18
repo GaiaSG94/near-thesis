@@ -32,12 +32,14 @@ merge_queue:
 
 merge_protections:
   - name: CI verte et pas de hold
+    description: Toute PR vers main exige ci, ci-budget, couche0 verts et aucun label hold.
+    if:
+      - base = main
     success_conditions:
       - check-success = ci
       - check-success = ci-budget
       - check-success = couche0
       - -label = hold
-      - base = main
 
 merge_protections_settings:
   auto_merge_conditions: true
